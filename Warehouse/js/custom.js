@@ -7,8 +7,9 @@ $(document).ready(function(){
       var features = document.getElementById("feature").value;
       var e = document.getElementById("category");
       var optionval = e.options[e.selectedIndex].text;
-      addProduct(id, name, category, quantity, desc, _features);
-      var product = {"name": name,"descrip": des,"features": features,"options": optionval}
+      var quantity = document.getElementById("quantity").value;
+      /*addProduct(id, name, category, quantity, desc, _features);*/
+      var product = {"name": name,"descrip": des,"features": features,"options": optionval,"quantity": quantity}
       $.post("http://localhost:8080/addprod",product,function(response){
         console.log(response)
       })

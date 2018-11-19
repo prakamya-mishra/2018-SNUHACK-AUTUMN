@@ -24,7 +24,8 @@ MongoClient.connect(url,function(err,db){
       "name": req.body.name,
       "descrip": req.body.descrip,
       "features": req.body.features,
-      "options": req.body.options
+      "options": req.body.options,
+      "quantity": req.body.quantity
     }
     dbo.collection("proddata").insertOne(product,function(err,result){
       if(err){

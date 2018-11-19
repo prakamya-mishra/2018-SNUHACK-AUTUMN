@@ -6,6 +6,7 @@ $(document).ready(function(){
         var features = response[i].features
         var descrip = response[i].descrip
         var option = response[i].options
+        var quantity = response[i].quantity
         var tr = document.createElement("tr")
         var nametd = document.createElement("td")
         nametd.innerHTML = name
@@ -15,11 +16,14 @@ $(document).ready(function(){
         descriptd.innerHTML = descrip
         var optiontd = document.createElement("td")
         optiontd.innerHTML = option
+        var quantitytd = document.createElement("td")
+        quantitytd.innerHTML = quantity
 
         tr.appendChild(nametd);
         tr.appendChild(featurestd);
         tr.appendChild(descriptd);
         tr.appendChild(optiontd);
+        tr.appendChild(quantitytd);
 
         document.getElementById("table").appendChild(tr);
 
