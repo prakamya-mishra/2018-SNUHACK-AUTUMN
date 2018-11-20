@@ -113,43 +113,46 @@
     <!-- Graphs -->
     <script src="./res/Chart.min.js"></script>
     <script>
-    var name = []
-    var quantity = []
       $.get('http://localhost:8080/getprod',function(response){
         if(response.length > 0){
+        var namelist = []
+        var quantitylist = []
         for(var i=0;i<response.length;i++){
           var name = response[i].name
           var quantity = response[i].quantity
+          namelist.push(name)
+          quantitylist.push(quantity)
         }
-      }
-      })
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: namelist/*["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]*/,
+            datasets: [{
+              data: quantitylist/*[15339, 21345, 18483, 24003, 23489, 24092, 12034]*/,
+              lineTension: 0,
+              backgroundColor: 'transparent',
+              borderColor: '#007bff',
+              borderWidth: 4,
+              pointBackgroundColor: '#007bff'
             }]
           },
-          legend: {
-            display: false,
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: false
+                }
+              }]
+            },
+            legend: {
+              display: false,
+            }
           }
-        }
-      });
+        });
+      }
+      })
+
     </script>
 
 
