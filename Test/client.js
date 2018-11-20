@@ -559,15 +559,17 @@ async function getOrderId() {
 
 login(CryptoUtils.generatePrivateKey());
 
-async function test(pid) {
-    console.log(pid);
-const q = Math.random() * 8 + 1;
-const res = Math.random() * 200 + 1;
-await addToCart(10, pid[0], 10);
-await placeOrder(10);
+async function test(pid, num) {
+  console.log(pid);
+  const q = Math.random() * 8 + 1;
+  const res = Math.random() * 200 + 1;
+  const orderId = 18;
+  await addToCart(orderId, pid[0], num);
+  await placeOrder(orderId);
 }
 const pid = process.argv.slice(2)
-test(pid)
+const num = process.argv.slice(3);
+test(pid, num)
 
 
 

@@ -560,7 +560,7 @@ for(var i = 0; i < 5; i++) {
     var pid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)+"id";
     var name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     var category = (Math.random() * 5 + 1).toString();
-    var quantity = 100;
+    var quantity = 10;
     var desc = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     var features = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     addProduct(pid, name, category, quantity, desc, features);
@@ -616,14 +616,16 @@ getOrderId().then((res) => {
 
 //Order Listener and transfer
 contract.events.OrderPlaced(function(err, res) {
-    console.log("New order received: "+JSON.stringify(res));
+    console.log("NEW ORDER: "+JSON.stringify(res));
     var to = res.returnValues.by;
     var oid = res.returnValues.orderId;
     contract.methods.buyOrder(oid, to).send();
 })
 
-contract.events.ProductAdded(function(err, res) {
-    console.log("Product Added: "+JSON.stringify(res.returnValues.id));
+contract.events.ProductAdded(async function(err, res) {
+    console.log("PRODUCT ADDED: "+JSON.stringify(res.returnValues.id));
+    const tokens = await contract.methods.getTokens(res.returnValues.id).call();
+    console.log(tokens);
     pids.push(res.returnValues.id);
     // var idmong = res.returnValues.id;
     // var namemong = res.returnValues.name;
@@ -632,5 +634,11 @@ contract.events.ProductAdded(function(err, res) {
     //   $.post("http://localhost:8080/addtrans",product,function(response){
     //     console.log(response)
     //   })
+})
+
+contract.events.ProductTransferred(async function(err, res) {
+  console.log("PRODUCT TRANSFERRED: "+res.returnValues.id+" Quantity: "+res.returnValues.quantity+" to: "+res.returnValues.to)
+  const tokens = await contract.methods.getTokens(res.returnValues.id).call();
+  console.log(tokens);
 })
 //
