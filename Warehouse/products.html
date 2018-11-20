@@ -113,9 +113,19 @@
     <!-- Graphs -->
     <script src="./res/Chart.min.js"></script>
     <script>
+    var name = []
+    var quantity = []
+      $.get('http://localhost:8080/getprod',function(response){
+        if(response.length > 0){
+        for(var i=0;i<response.length;i++){
+          var name = response[i].name
+          var quantity = response[i].quantity
+        }
+      }
+      })
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
           labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
           datasets: [{
